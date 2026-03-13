@@ -13,179 +13,33 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html, body { height: 100%; overflow: hidden; }
-body {
-  font-family: 'Syne', sans-serif;
-  background: #ffffff;
-  color: #111111;
-  overscroll-behavior: none;
-}
-#app {
-  height: 100vh;
-  height: -webkit-fill-available;
-  display: flex;
-  flex-direction: column;
-  padding-top: env(safe-area-inset-top, 0px);
-}
+body { font-family: 'Syne', sans-serif; background: #ffffff; color: #111111; overscroll-behavior: none; }
+#app { height: 100vh; height: -webkit-fill-available; display: flex; flex-direction: column; padding-top: env(safe-area-inset-top, 0px); }
 #content { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; order: 1; }
 .screen { display: none; padding-bottom: 3rem; animation: fadeUp 0.2s ease; }
 .screen.active { display: block; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-/* Tab bar */
-#tabbar {
-  display: flex;
-  background: #ffffff;
-  border-top: 2px solid #e0e0e0;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-  flex-shrink: 0;
-  order: 2;
-}
-.tab {
-  flex: 1; display: flex; flex-direction: column; align-items: center;
-  padding: 10px 4px 6px; cursor: pointer; border: none; background: none;
-  color: #aaaaaa; font-family: 'DM Mono', monospace;
-  font-size: 0.58rem; transition: color 0.15s; gap: 3px;
-}
+#tabbar { display: flex; background: #ffffff; border-top: 2px solid #e0e0e0; padding-bottom: env(safe-area-inset-bottom, 0px); flex-shrink: 0; order: 2; }
+.tab { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 10px 4px 6px; cursor: pointer; border: none; background: none; color: #aaaaaa; font-family: 'DM Mono', monospace; font-size: 0.58rem; transition: color 0.15s; gap: 3px; }
 .tab svg { width: 22px; height: 22px; stroke-width: 1.5; fill: none; stroke: currentColor; }
 .tab.active { color: #2e7d32; }
-
-/* Page header */
-.page-header {
-  padding: 1.4rem 1.2rem 1rem;
-  border-bottom: 2px solid #e8e8e8;
-  position: sticky; top: 0; z-index: 10;
-  background: #ffffff;
-}
+.page-header { padding: 1.4rem 1.2rem 1rem; border-bottom: 2px solid #e8e8e8; position: sticky; top: 0; z-index: 10; background: #ffffff; }
 .eyebrow { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: #2e7d32; margin-bottom: 0.3rem; }
 .page-header h1 { font-size: 1.6rem; font-weight: 800; color: #111111; line-height: 1.1; }
 .page-header p { font-size: 0.78rem; color: #666666; margin-top: 0.3rem; }
-
-/* Cards */
-.card {
-  margin: 0.85rem 1rem 0;
-  background: #ffffff;
-  border: 2px solid #e0e0e0;
-  border-radius: 14px;
-  padding: 1.2rem;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
-}
-.card-lbl {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
-  color: #2e7d32; margin-bottom: 0.9rem;
-  display: flex; align-items: center; gap: 0.5rem; font-weight: 500;
-}
+.card { margin: 0.85rem 1rem 0; background: #ffffff; border: 2px solid #e0e0e0; border-radius: 14px; padding: 1.2rem; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
+.card-lbl { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: #2e7d32; margin-bottom: 0.9rem; display: flex; align-items: center; gap: 0.5rem; font-weight: 500; }
 .card-lbl::after { content: ''; flex: 1; height: 1.5px; background: #e8e8e8; }
-
-/* Toggles */
 .toggle-row { display: flex; gap: 0.5rem; }
-.tbtn {
-  flex: 1; padding: 0.7rem 0.3rem; border-radius: 10px;
-  border: 2px solid #e0e0e0; background: #f5f5f5;
-  color: #888888; font-family: 'DM Mono', monospace;
-  font-size: 0.72rem; cursor: pointer; transition: all 0.14s; text-align: center;
-}
+.tbtn { flex: 1; padding: 0.7rem 0.3rem; border-radius: 10px; border: 2px solid #e0e0e0; background: #f5f5f5; color: #888888; font-family: 'DM Mono', monospace; font-size: 0.72rem; cursor: pointer; transition: all 0.14s; text-align: center; }
 .tbtn.active { border-color: #2e7d32; color: #1b5e20; background: #e8f5e9; font-weight: 700; }
-
-/* Lumen pills */
 .lumen-row { display: flex; gap: 0.4rem; }
-.lpill {
-  flex: 1; padding: 0.6rem 0.2rem; border-radius: 9px;
-  border: 2px solid #e0e0e0; background: #f5f5f5;
-  color: #888888; font-family: 'DM Mono', monospace;
-  font-size: 0.68rem; cursor: pointer; transition: all 0.14s; text-align: center;
-}
+.lpill { flex: 1; padding: 0.6rem 0.2rem; border-radius: 9px; border: 2px solid #e0e0e0; background: #f5f5f5; color: #888888; font-family: 'DM Mono', monospace; font-size: 0.68rem; cursor: pointer; transition: all 0.14s; text-align: center; }
 .lpill.active { border-color: #2e7d32; color: #1b5e20; background: #e8f5e9; font-weight: 700; }
 .lumen-hint { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: #999999; margin-top: 0.5rem; }
-
-/* Sliders */
-.sfield { margin-bottom: 1rem; }
-.sfield:last-child { margin-bottom: 0; }
-.sfield label { display: flex; justify-content: space-between; align-items: center; font-family: 'DM Mono', monospace; font-size: 0.68rem; color: #555555; margin-bottom: 0.5rem; }
-.sfield label span { color: #1b5e20; font-size: 0.95rem; font-weight: 800; }
-input[type=range] { width: 100%; -webkit-appearance: none; height: 6px; background: #e0e0e0; border-radius: 4px; outline: none; }
-input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; border-radius: 50%; background: #388e3c; cursor: pointer; box-shadow: 0 2px 6px rgba(46,125,50,0.35); }
-
-/* Macro trio */
-.trio { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.6rem; margin: 0.85rem 1rem 0; }
-.macro-card { background: #ffffff; border: 2px solid #e0e0e0; border-radius: 13px; padding: 0.9rem 0.5rem; text-align: center; position: relative; overflow: hidden; box-shadow: 0 1px 5px rgba(0,0,0,0.07); }
-.macro-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; }
-.macro-card.p::after { background: #f9a825; }
-.macro-card.c::after { background: #388e3c; }
-.macro-card.f::after { background: #e65100; }
-.macro-card .num { font-size: 1.8rem; font-weight: 800; line-height: 1; }
-.macro-card.p .num { color: #f57f17; }
-.macro-card.c .num { color: #2e7d32; }
-.macro-card.f .num { color: #e65100; }
-.macro-card .unit { font-size: 0.72rem; color: #999999; }
-.macro-card .mlbl { font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: #999999; margin-top: 0.25rem; }
-
-/* Calorie banner */
-.cal-banner { margin: 0.85rem 1rem 0; border-radius: 14px; padding: 1rem 1.2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
-.cal-banner.tr { background: #e8f5e9; border: 2px solid #a5d6a7; }
-.cal-banner.rest { background: #e3f2fd; border: 2px solid #90caf9; }
-.cal-big { font-size: 2.4rem; font-weight: 800; }
-.cal-banner.tr .cal-big { color: #1b5e20; }
-.cal-banner.rest .cal-big { color: #0d47a1; }
-.cal-sub { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: #555555; }
-.cal-right { text-align: right; }
-
-/* Sleep box */
-.sleep-box { margin: 0.85rem 1rem 0; background: #e3f2fd; border: 2px solid #90caf9; border-radius: 13px; padding: 1rem 1.1rem; }
-.sleep-lbl { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: #1565c0; margin-bottom: 0.5rem; }
-.sleep-box p { font-size: 0.8rem; color: #1a2a3a; line-height: 1.65; }
-.sleep-box strong { color: #0d47a1; font-weight: 700; }
-
-/* Meal list */
-.meal-list { display: flex; flex-direction: column; gap: 0.55rem; }
-.meal-row { display: grid; grid-template-columns: 95px 1fr auto; gap: 0.7rem; align-items: start; padding: 0.8rem 0.9rem; background: #f9f9f9; border: 1.5px solid #e8e8e8; border-radius: 10px; }
-.meal-time { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: #999999; padding-top: 0.1rem; }
-.meal-desc { font-size: 0.8rem; color: #222222; line-height: 1.5; }
-.meal-nums { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: #888888; text-align: right; white-space: nowrap; padding-top: 0.1rem; }
-
-/* Insights */
-.insight { display: flex; gap: 0.7rem; padding: 0.7rem 0; border-bottom: 1.5px solid #f0f0f0; font-size: 0.8rem; color: #444444; line-height: 1.6; }
-.insight:last-child { border-bottom: none; padding-bottom: 0; }
-.insight-ico { flex-shrink: 0; font-size: 1rem; margin-top: 0.05rem; }
-
-/* Log fields */
-.log-field { margin-bottom: 0.9rem; }
-.log-field:last-child { margin-bottom: 0; }
-.log-field label { display: block; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: #555555; margin-bottom: 0.4rem; }
-.log-field input, .log-field textarea { width: 100%; background: #f5f5f5; border: 2px solid #e0e0e0; color: #111111; padding: 0.65rem 0.85rem; border-radius: 9px; font-family: 'DM Mono', monospace; font-size: 0.85rem; outline: none; transition: border-color 0.15s; }
-.log-field input:focus, .log-field textarea:focus { border-color: #388e3c; }
-.log-field input[readonly] { color: #888888; background: #eeeeee; }
-.log-field textarea { resize: none; height: 75px; font-size: 0.78rem; }
-.log-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
-
-/* Buttons */
-.btn { width: 100%; padding: 1rem; border: none; border-radius: 12px; font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.14s; }
-.btn-green { background: #388e3c; color: #ffffff; box-shadow: 0 3px 10px rgba(46,125,50,0.3); }
-.btn-green:hover { background: #2e7d32; }
-.btn-green:active { transform: scale(0.98); }
-.btn-outline { background: #f5f5f5; border: 2px solid #e0e0e0; color: #555555; }
-
-/* Status */
-.status { margin: 0.75rem 1rem 0; padding: 0.85rem 1rem; border-radius: 10px; font-family: 'DM Mono', monospace; font-size: 0.72rem; display: none; }
-.status.ok { background: #e8f5e9; border: 2px solid #a5d6a7; color: #1b5e20; }
-.status.err { background: #ffebee; border: 2px solid #ef9a9a; color: #b71c1c; }
-.status.show { display: block; }
-
-/* Settings */
-.settings-field { margin-bottom: 0.9rem; }
-.settings-field label { display: block; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: #555555; margin-bottom: 0.4rem; }
-.settings-field input { width: 100%; background: #f5f5f5; border: 2px solid #e0e0e0; color: #111111; padding: 0.65rem 0.85rem; border-radius: 9px; font-family: 'DM Mono', monospace; font-size: 0.78rem; outline: none; transition: border-color 0.15s; }
-.settings-field input:focus { border-color: #388e3c; }
-.settings-hint { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: #999999; margin-top: 0.4rem; line-height: 1.55; }
-.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 0.4rem; }
-.dot.ok { background: #388e3c; }
-.dot.warn { background: #f9a825; }
-</style>
-</head>
-<body>
+.sfield { margin-bottom: 1rem; }<body><body>
 <div id="app">
   <div id="content">
-
     <div class="screen active" id="screen-today">
       <div class="page-header">
         <div class="eyebrow">Daily Inputs</div>
@@ -230,7 +84,6 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px;
         <button class="btn btn-green" onclick="calculate()">Calculate My Macros →</button>
       </div>
     </div>
-
     <div class="screen" id="screen-results">
       <div class="page-header">
         <div class="eyebrow">Macro Targets</div>
@@ -271,7 +124,6 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px;
         <button class="btn btn-green" onclick="goLog()">Log to Airtable →</button>
       </div>
     </div>
-
     <div class="screen" id="screen-log">
       <div class="page-header">
         <div class="eyebrow">Airtable Log</div>
@@ -291,7 +143,9 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px;
         <div class="card-lbl">Actuals (from Cronometer)</div>
         <div class="log-row">
           <div class="log-field"><label>Actual Protein (g)</label><input id="l-aprot" type="number" placeholder="0"/></div>
-          <div class="log-field"><label>Actual Carbs (g)</label><input id="l-acarb" type="number" placeholder="0"/></div>
+          <div class="log-field"><label>Actual Carbs Total (g)</label><input id="l-acarb" type="number" placeholder="0" oninput="updateNetCarbs()"/></div>
+          <div class="log-field"><label>Fibre (g)</label><input id="l-afibre" type="number" placeholder="0" oninput="updateNetCarbs()"/></div>
+          <div class="log-field"><label>Net Carbs (auto)</label><input id="l-netcarb" type="number" readonly style="color:#2e7d32;font-weight:700;"/></div>
           <div class="log-field"><label>Actual Fat (g)</label><input id="l-afat" type="number" placeholder="0"/></div>
           <div class="log-field"><label>Actual Calories</label><input id="l-acal" type="number" placeholder="0"/></div>
         </div>
@@ -315,7 +169,6 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px;
         <button class="btn btn-outline" onclick="showTab('results')">← Back to Results</button>
       </div>
     </div>
-
     <div class="screen" id="screen-history">
       <div class="page-header">
         <div class="eyebrow">Airtable Sync</div>
@@ -328,7 +181,6 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px;
       <div id="history-status" class="status"></div>
       <div id="history-list" style="margin-top:0.5rem;"></div>
     </div>
-
     <div class="screen" id="screen-settings">
       <div class="page-header">
         <div class="eyebrow">Configuration</div>
@@ -363,7 +215,7 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px;
           <span style="font-family:'DM Mono',monospace;color:#2e7d32;font-size:0.68rem;">
             Date · Day Type · Lumen Score · HRV · Recovery Score · Sleep Score ·
             Target Protein · Target Carbs · Target Fat · Target Calories ·
-            Actual Protein · Actual Carbs · Actual Fat · Actual Calories ·
+            Actual Protein · Actual Carbs · Fibre · Net Carbs · Actual Fat · Actual Calories ·
             Next Sleep Score · Notes
           </span>
         </p>
@@ -374,13 +226,11 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px;
           Macro Optimizer v2 · Body recomp at 77.5 kg<br/>
           Tools: Lumen · Oura · AutoSleep · Athlytic<br/>
           Calories: ~1760–2020 kcal/day with carb cycling<br/>
-          Protein: 2.1 g/kg lean mass · Sleep carbs: 25–30g
+          Protein: 2.1 g/kg lean mass · Sleep carbs: 25–30g net
         </p>
       </div>
     </div>
-
   </div>
-
   <div id="tabbar">
     <button class="tab active" onclick="showTab('today')">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
@@ -403,16 +253,12 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px;
       Settings
     </button>
   </div>
-</div>
-
-<script>
+</div><script>
 const state={dayType:'strength',lumenScore:3,hrv:58,rec:72,sleep:74,results:null};
-
 window.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('today-date').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
-  loadSettings(); updateConnStatus();
+  loadSettings();updateConnStatus();
 });
-
 function showTab(name){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -424,7 +270,6 @@ function showTab(name){
 function setDay(el){document.querySelectorAll('[data-day]').forEach(b=>b.classList.remove('active'));el.classList.add('active');state.dayType=el.dataset.day;}
 function setLumen(el){document.querySelectorAll('[data-l]').forEach(b=>b.classList.remove('active'));el.classList.add('active');state.lumenScore=+el.dataset.l;}
 function slider(id){const val=+document.getElementById(id).value;state[id]=val;const map={hrv:'hrv-val',rec:'rec-val',sleep:'sleep-val'};document.getElementById(map[id]).textContent=val;}
-
 function calcMacros(){
   const{dayType,lumenScore,hrv,rec,sleep}=state;
   const isTraining=dayType!=='rest';
@@ -445,7 +290,6 @@ function calcMacros(){
   const totalCals=Math.round(protein*4+totalCarbs*4+workingFat*9);
   return{protein,carbs:totalCarbs,fat:workingFat,totalCals,sleepCarb,preCarb,postCarb,isTraining,readiness:Math.round(readiness*100),deficit:isTraining?'150–250':'350–500'};
 }
-
 function calculate(){
   const r=calcMacros();state.results=r;
   document.getElementById('cal-banner').className='cal-banner '+(r.isTraining?'tr':'rest');
@@ -458,10 +302,9 @@ function calculate(){
   document.getElementById('r-protein').textContent=r.protein;
   document.getElementById('r-carbs').textContent=r.carbs;
   document.getElementById('r-fat').textContent=r.fat;
-  document.getElementById('sleep-note').innerHTML='Target <strong>'+r.sleepCarb+'g complex carbs</strong> with dinner, 2–3 hours before bed. '+(state.sleep<70?'Sleep was disrupted last night — slightly increased to '+r.sleepCarb+'g tonight. ':'Sleep was good — hold at '+r.sleepCarb+'g. ')+'Best sources: ½ cup sweet potato (~15g), ½ cup lentils (~20g), small bowl of oats. Avoid exceeding ~35g refined carbs at dinner as this tends to fragment sleep.';
+  document.getElementById('sleep-note').innerHTML='Target <strong>'+r.sleepCarb+'g net carbs</strong> with dinner, 2–3 hours before bed. '+(state.sleep<70?'Sleep was disrupted — slightly increased to '+r.sleepCarb+'g tonight. ':'Sleep was good — hold at '+r.sleepCarb+'g. ')+'Best sources: half cup sweet potato (~13g net), half cup lentils (~15g net), small bowl oats (~20g net). Avoid exceeding ~35g net carbs at dinner as this tends to fragment sleep.';
   buildMeals(r);buildInsights(r);showTab('results');
 }
-
 function buildMeals(r){
   const{protein:p,carbs:c,fat:f,sleepCarb,preCarb,postCarb,isTraining}=r;
   const list=document.getElementById('meal-list');list.innerHTML='';
@@ -470,30 +313,33 @@ function buildMeals(r){
     {t:'Pre-workout',d:'Banana or rice cake · '+preCarb+'g quick carbs',m:'P'+Math.round(p*.10)+' C'+preCarb+' F5'},
     {t:'Post-workout',d:'Protein shake or chicken + rice · '+postCarb+'g fast carbs',m:'P'+Math.round(p*.25)+' C'+postCarb+' F'+Math.round(f*.10)},
     {t:'Lunch',d:'Lean protein + salad + olive oil',m:'P'+Math.round(p*.22)+' C'+Math.round(c*.22)+' F'+Math.round(f*.35)},
-    {t:'Dinner',d:'Lean protein + vegetables + '+sleepCarb+'g slow carbs',m:'P'+Math.round(p*.15)+' C'+sleepCarb+' F'+Math.round(f*.25)},
+    {t:'Dinner',d:'Lean protein + vegetables + '+sleepCarb+'g net carbs',m:'P'+Math.round(p*.15)+' C'+sleepCarb+' F'+Math.round(f*.25)},
   ]:[
     {t:'Breakfast',d:'Eggs or cottage cheese + greens',m:'P'+Math.round(p*.30)+' C'+Math.round(c*.15)+' F'+Math.round(f*.35)},
     {t:'Lunch',d:'Tuna or chicken salad with avocado + olive oil',m:'P'+Math.round(p*.32)+' C'+Math.round(c*.30)+' F'+Math.round(f*.35)},
     {t:'Snack',d:'Greek yogurt or small handful of nuts',m:'P'+Math.round(p*.13)+' C'+Math.round(c*.20)+' F'+Math.round(f*.15)},
-    {t:'Dinner',d:'Lean protein + vegetables + '+sleepCarb+'g slow carbs',m:'P'+Math.round(p*.25)+' C'+sleepCarb+' F'+Math.round(f*.15)},
+    {t:'Dinner',d:'Lean protein + vegetables + '+sleepCarb+'g net carbs',m:'P'+Math.round(p*.25)+' C'+sleepCarb+' F'+Math.round(f*.15)},
   ];
   meals.forEach(m=>{list.innerHTML+='<div class="meal-row"><div class="meal-time">'+m.t+'</div><div class="meal-desc">'+m.d+'</div><div class="meal-nums">'+m.m+'</div></div>';});
 }
-
 function buildInsights(r){
   const list=document.getElementById('insights-list');list.innerHTML='';
   const ins=[];
   const{lumenScore,rec,hrv,sleep}=state;const{isTraining,readiness}=r;
   if(lumenScore<=2&&isTraining)ins.push({i:'⚡',t:"Lumen shows fat-burn but you're training — peri-workout carbs take priority. Keep the rest of the day fat-focused."});
   else if(lumenScore<=2)ins.push({i:'🔥',t:'Lumen shows fat-burn on a rest day — ideal. Your body is using stored fat as fuel. Keep carbs only in the dinner window.'});
-  else if(lumenScore>=4)ins.push({i:'⚡',t:'Lumen shows carb-burn mode. Carbs bumped accordingly. Good day to train hard — glycogen stores are primed.'});
+  else if(lumenScore>=4)ins.push({i:'⚡',t:'Lumen shows carb-burn mode. Carbs bumped accordingly. Good day to train hard.'});
   if(readiness<55)ins.push({i:'😴',t:'Low readiness today (HRV '+hrv+'ms / Recovery '+rec+'%). Calories slightly reduced. Consider lighter training today.'});
-  else if(readiness>80)ins.push({i:'💚',t:'Strong readiness. Well-recovered — great day to push hard and make full use of the carb allocation.'});
+  else if(readiness>80)ins.push({i:'💚',t:'Strong readiness. Well-recovered — great day to push hard.'});
   if(sleep<65)ins.push({i:'🌙',t:'Sleep was below 65 last night. Stay close to your protein target today to protect muscle tissue.'});
   ins.push({i:'📊',t:'Recomp goal: ~0.3–0.5 kg fat loss per week while maintaining lean mass. Expect visible changes over 10–16 weeks.'});
   ins.forEach(function(x){list.innerHTML+='<div class="insight"><span class="insight-ico">'+x.i+'</span><span>'+x.t+'</span></div>';});
 }
-
+function updateNetCarbs(){
+  const total=+document.getElementById('l-acarb').value||0;
+  const fibre=+document.getElementById('l-afibre').value||0;
+  document.getElementById('l-netcarb').value=Math.max(0,total-fibre)||'';
+}
 function goLog(){
   if(!state.results){calculate();return;}
   const r=state.results;
@@ -503,7 +349,6 @@ function goLog(){
   document.getElementById('l-tcal').value=r.totalCals;
   showTab('log');
 }
-
 async function logToAirtable(){
   const token=localStorage.getItem('at_token')||'';
   const base=localStorage.getItem('at_base')||'';
@@ -511,17 +356,16 @@ async function logToAirtable(){
   if(!token||!base){showStatus('log-status','err','Please add your Airtable token and Base ID in Settings first.');return;}
   const btn=document.getElementById('log-btn');btn.textContent='Sending…';btn.disabled=true;
   const r=state.results||{};
-  const fields={'Date':new Date().toISOString().split('T')[0],'Day Type':state.dayType.charAt(0).toUpperCase()+state.dayType.slice(1),'Lumen Score':state.lumenScore,'HRV':state.hrv,'Recovery Score':state.rec,'Sleep Score':state.sleep,'Target Protein':r.protein||0,'Target Carbs':r.carbs||0,'Target Fat':r.fat||0,'Target Calories':r.totalCals||0,'Actual Protein':+document.getElementById('l-aprot').value||0,'Actual Carbs':+document.getElementById('l-acarb').value||0,'Actual Fat':+document.getElementById('l-afat').value||0,'Actual Calories':+document.getElementById('l-acal').value||0,'Notes':document.getElementById('l-notes').value||''};
+  const fields={'Date':new Date().toISOString().split('T')[0],'Day Type':state.dayType.charAt(0).toUpperCase()+state.dayType.slice(1),'Lumen Score':state.lumenScore,'HRV':state.hrv,'Recovery Score':state.rec,'Sleep Score':state.sleep,'Target Protein':r.protein||0,'Target Carbs':r.carbs||0,'Target Fat':r.fat||0,'Target Calories':r.totalCals||0,'Actual Protein':+document.getElementById('l-aprot').value||0,'Actual Carbs':+document.getElementById('l-acarb').value||0,'Fibre':+document.getElementById('l-afibre').value||0,'Net Carbs':+document.getElementById('l-netcarb').value||0,'Actual Fat':+document.getElementById('l-afat').value||0,'Actual Calories':+document.getElementById('l-acal').value||0,'Notes':document.getElementById('l-notes').value||''};
   const ns=document.getElementById('l-nextsleep').value;if(ns)fields['Next Sleep Score']=+ns;
   try{
     const res=await fetch('https://api.airtable.com/v0/'+base+'/'+encodeURIComponent(table),{method:'POST',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({fields:fields})});
     const data=await res.json();
-    if(data.id){showStatus('log-status','ok','Logged successfully!');['l-aprot','l-acarb','l-afat','l-acal','l-nextsleep','l-notes'].forEach(function(id){document.getElementById(id).value='';});}
+    if(data.id){showStatus('log-status','ok','Logged successfully!');['l-aprot','l-acarb','l-afibre','l-netcarb','l-afat','l-acal','l-nextsleep','l-notes'].forEach(function(id){document.getElementById(id).value='';});}
     else showStatus('log-status','err','Error: '+(data.error&&data.error.message||'Unknown error'));
   }catch(e){showStatus('log-status','err','Network error: '+e.message);}
   btn.textContent='Send to Airtable ↑';btn.disabled=false;
 }
-
 async function fetchHistory(){
   const token=localStorage.getItem('at_token')||'';
   const base=localStorage.getItem('at_base')||'';
@@ -537,11 +381,10 @@ async function fetchHistory(){
     data.records.forEach(function(rec){
       const f=rec.fields;
       const delta=(f['Actual Calories']&&f['Target Calories'])?f['Actual Calories']-f['Target Calories']:null;
-      list.innerHTML+='<div class="card" style="margin-top:0.6rem;"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.7rem;"><span style="font-weight:800;font-size:1rem;">'+(f['Date']||'—')+'</span><span style="font-family:DM Mono,monospace;font-size:0.65rem;color:#888;">'+(f['Day Type']||'')+'</span></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.4rem;font-family:DM Mono,monospace;font-size:0.65rem;"><div><div style="color:#f57f17;font-weight:700;">P '+(f['Actual Protein']||'—')+'g</div><div style="color:#999">tgt '+(f['Target Protein']||'—')+'</div></div><div><div style="color:#2e7d32;font-weight:700;">C '+(f['Actual Carbs']||'—')+'g</div><div style="color:#999">tgt '+(f['Target Carbs']||'—')+'</div></div><div><div style="color:#e65100;font-weight:700;">F '+(f['Actual Fat']||'—')+'g</div><div style="color:#999">tgt '+(f['Target Fat']||'—')+'</div></div><div><div style="color:'+(delta===null?'#888':delta>100?'#c62828':'#2e7d32')+';font-weight:700;">'+(f['Actual Calories']||'—')+' kcal</div><div style="color:#999">'+(delta!==null?(delta>0?'+':'')+delta:'')+'</div></div></div>'+(f['Next Sleep Score']?'<div style="margin-top:0.6rem;font-family:DM Mono,monospace;font-size:0.65rem;color:#1565c0;">🌙 Next sleep: '+f['Next Sleep Score']+'</div>':'')+(f['Notes']?'<div style="margin-top:0.4rem;font-size:0.78rem;color:#555;">'+f['Notes']+'</div>':'')+'</div>';
+      list.innerHTML+='<div class="card" style="margin-top:0.6rem;"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.7rem;"><span style="font-weight:800;font-size:1rem;">'+(f['Date']||'—')+'</span><span style="font-family:DM Mono,monospace;font-size:0.65rem;color:#888;">'+(f['Day Type']||'')+'</span></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.4rem;font-family:DM Mono,monospace;font-size:0.65rem;"><div><div style="color:#f57f17;font-weight:700;">P '+(f['Actual Protein']||'—')+'g</div><div style="color:#999">tgt '+(f['Target Protein']||'—')+'</div></div><div><div style="color:#2e7d32;font-weight:700;">C '+(f['Net Carbs']||f['Actual Carbs']||'—')+'g net</div><div style="color:#999">tgt '+(f['Target Carbs']||'—')+'</div></div><div><div style="color:#e65100;font-weight:700;">F '+(f['Actual Fat']||'—')+'g</div><div style="color:#999">tgt '+(f['Target Fat']||'—')+'</div></div><div><div style="color:'+(delta===null?'#888':delta>100?'#c62828':'#2e7d32')+';font-weight:700;">'+(f['Actual Calories']||'—')+' kcal</div><div style="color:#999">'+(delta!==null?(delta>0?'+':'')+delta:'')+'</div></div></div>'+(f['Next Sleep Score']?'<div style="margin-top:0.6rem;font-family:DM Mono,monospace;font-size:0.65rem;color:#1565c0;">🌙 Next sleep: '+f['Next Sleep Score']+'</div>':'')+(f['Notes']?'<div style="margin-top:0.4rem;font-size:0.78rem;color:#555;">'+f['Notes']+'</div>':'')+'</div>';
     });
   }catch(e){showStatus('history-status','err','Network error: '+e.message);}
 }
-
 function saveSettings(){localStorage.setItem('at_token',document.getElementById('s-token').value);localStorage.setItem('at_base',document.getElementById('s-base').value);localStorage.setItem('at_table',document.getElementById('s-table').value||'Macros');updateConnStatus();}
 function loadSettings(){document.getElementById('s-token').value=localStorage.getItem('at_token')||'';document.getElementById('s-base').value=localStorage.getItem('at_base')||'';document.getElementById('s-table').value=localStorage.getItem('at_table')||'Macros';}
 function updateConnStatus(){
@@ -557,3 +400,4 @@ if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(
 </script>
 </body>
 </html>
+
