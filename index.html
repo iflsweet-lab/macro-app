@@ -6,161 +6,192 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <meta name="apple-mobile-web-app-title" content="Macros"/>
-<meta name="theme-color" content="#f5f7f4"/>
+<meta name="theme-color" content="#ffffff"/>
 <title>Macro Optimizer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --bg:#0a0c0a; --bg2:#111410; --bg3:#161a14; --border:#1e2219;
-  --green:#7ecb7e; --green-dim:rgba(126,203,126,0.10); --green-border:rgba(126,203,126,0.22);
-  --gold:#d4a847; --blue:#8ab0e8; --blue-dim:rgba(138,176,232,0.08); --blue-border:rgba(138,176,232,0.18);
-  --orange:#e8916a; --red:#e87a6a;
-  --text:#dde4db; --text-mid:#7a8878; --text-dim:#3e4a3c;
-  --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px);
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: 'Syne', sans-serif;
+  background: #ffffff;
+  color: #111111;
+  overscroll-behavior: none;
 }
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html,body{height:100%;overflow:hidden;}
-body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);overscroll-behavior:none;}
-
-#app{height:100vh;height:-webkit-fill-available;display:flex;flex-direction:column;padding-top:var(--safe-top);}
-#content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;order:1;}
-.screen{display:none;padding-bottom:3rem;animation:fadeUp 0.22s ease;}
-.screen.active{display:block;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+#app {
+  height: 100vh;
+  height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  padding-top: env(safe-area-inset-top, 0px);
+}
+#content { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; order: 1; }
+.screen { display: none; padding-bottom: 3rem; animation: fadeUp 0.2s ease; }
+.screen.active { display: block; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Tab bar */
-#tabbar{display:flex;background:rgba(245,247,244,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);padding-bottom:var(--safe-bottom);flex-shrink:0;order:2;}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 4px 6px;cursor:pointer;border:none;background:none;color:var(--text-dim);font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.07em;transition:color 0.15s;gap:3px;}
-.tab svg{width:22px;height:22px;stroke-width:1.5;fill:none;stroke:currentColor;}
-.tab.active{color:var(--green);}
+#tabbar {
+  display: flex;
+  background: #ffffff;
+  border-top: 2px solid #e0e0e0;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  flex-shrink: 0;
+  order: 2;
+}
+.tab {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  padding: 10px 4px 6px; cursor: pointer; border: none; background: none;
+  color: #aaaaaa; font-family: 'DM Mono', monospace;
+  font-size: 0.58rem; transition: color 0.15s; gap: 3px;
+}
+.tab svg { width: 22px; height: 22px; stroke-width: 1.5; fill: none; stroke: currentColor; }
+.tab.active { color: #2e7d32; }
 
 /* Page header */
-.page-header{padding:1.3rem 1.2rem 0.9rem;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;background:rgba(245,247,244,0.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
-.eyebrow{font-family:'DM Mono',monospace;font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin-bottom:0.2rem;}
-.page-header h1{font-size:1.45rem;font-weight:800;color:#f0f4ee;line-height:1.1;}
-.page-header p{font-size:0.7rem;color:var(--text-mid);margin-top:0.2rem;}
+.page-header {
+  padding: 1.4rem 1.2rem 1rem;
+  border-bottom: 2px solid #e8e8e8;
+  position: sticky; top: 0; z-index: 10;
+  background: #ffffff;
+}
+.eyebrow { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: #2e7d32; margin-bottom: 0.3rem; }
+.page-header h1 { font-size: 1.6rem; font-weight: 800; color: #111111; line-height: 1.1; }
+.page-header p { font-size: 0.78rem; color: #666666; margin-top: 0.3rem; }
 
 /* Cards */
-.card{margin:0.75rem 1rem 0;background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.15rem;}
-.card-lbl{font-family:'DM Mono',monospace;font-size:0.52rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--green);margin-bottom:0.9rem;display:flex;align-items:center;gap:0.5rem;}
-.card-lbl::after{content:'';flex:1;height:1px;background:var(--border);}
+.card {
+  margin: 0.85rem 1rem 0;
+  background: #ffffff;
+  border: 2px solid #e0e0e0;
+  border-radius: 14px;
+  padding: 1.2rem;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+}
+.card-lbl {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #2e7d32; margin-bottom: 0.9rem;
+  display: flex; align-items: center; gap: 0.5rem; font-weight: 500;
+}
+.card-lbl::after { content: ''; flex: 1; height: 1.5px; background: #e8e8e8; }
 
 /* Toggles */
-.toggle-row{display:flex;gap:0.4rem;}
-.tbtn{flex:1;padding:0.6rem 0.2rem;border-radius:9px;border:1px solid var(--border);background:var(--bg3);color:var(--text-dim);font-family:'DM Mono',monospace;font-size:0.65rem;cursor:pointer;transition:all 0.14s;text-align:center;line-height:1.3;}
-.tbtn.active{border-color:var(--green);color:var(--green);background:var(--green-dim);}
+.toggle-row { display: flex; gap: 0.5rem; }
+.tbtn {
+  flex: 1; padding: 0.7rem 0.3rem; border-radius: 10px;
+  border: 2px solid #e0e0e0; background: #f5f5f5;
+  color: #888888; font-family: 'DM Mono', monospace;
+  font-size: 0.72rem; cursor: pointer; transition: all 0.14s; text-align: center;
+}
+.tbtn.active { border-color: #2e7d32; color: #1b5e20; background: #e8f5e9; font-weight: 700; }
 
 /* Lumen pills */
-.lumen-row{display:flex;gap:0.35rem;}
-.lpill{flex:1;padding:0.55rem 0.2rem;border-radius:8px;border:1px solid var(--border);background:var(--bg3);color:var(--text-dim);font-family:'DM Mono',monospace;font-size:0.62rem;cursor:pointer;transition:all 0.14s;text-align:center;}
-.lpill.active{border-color:var(--green);color:var(--green);background:var(--green-dim);}
-.lumen-hint{font-family:'DM Mono',monospace;font-size:0.55rem;color:var(--text-dim);margin-top:0.5rem;}
+.lumen-row { display: flex; gap: 0.4rem; }
+.lpill {
+  flex: 1; padding: 0.6rem 0.2rem; border-radius: 9px;
+  border: 2px solid #e0e0e0; background: #f5f5f5;
+  color: #888888; font-family: 'DM Mono', monospace;
+  font-size: 0.68rem; cursor: pointer; transition: all 0.14s; text-align: center;
+}
+.lpill.active { border-color: #2e7d32; color: #1b5e20; background: #e8f5e9; font-weight: 700; }
+.lumen-hint { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: #999999; margin-top: 0.5rem; }
 
 /* Sliders */
-.sfield{margin-bottom:0.9rem;}
-.sfield:last-child{margin-bottom:0;}
-.sfield label{display:flex;justify-content:space-between;align-items:center;font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--text-dim);margin-bottom:0.45rem;}
-.sfield label span{color:var(--green);font-size:0.72rem;}
-input[type=range]{width:100%;-webkit-appearance:none;height:4px;background:var(--border);border-radius:4px;outline:none;}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--green);cursor:pointer;box-shadow:0 0 10px rgba(126,203,126,0.3);}
+.sfield { margin-bottom: 1rem; }
+.sfield:last-child { margin-bottom: 0; }
+.sfield label { display: flex; justify-content: space-between; align-items: center; font-family: 'DM Mono', monospace; font-size: 0.68rem; color: #555555; margin-bottom: 0.5rem; }
+.sfield label span { color: #1b5e20; font-size: 0.95rem; font-weight: 800; }
+input[type=range] { width: 100%; -webkit-appearance: none; height: 6px; background: #e0e0e0; border-radius: 4px; outline: none; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; border-radius: 50%; background: #388e3c; cursor: pointer; box-shadow: 0 2px 6px rgba(46,125,50,0.35); }
 
 /* Macro trio */
-.trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.55rem;margin:0.75rem 1rem 0;}
-.macro-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:0.85rem 0.6rem;text-align:center;position:relative;overflow:hidden;}
-.macro-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
-.macro-card.p::after{background:var(--gold);}
-.macro-card.c::after{background:var(--green);}
-.macro-card.f::after{background:var(--orange);}
-.macro-card .num{font-size:1.55rem;font-weight:800;line-height:1;}
-.macro-card.p .num{color:var(--gold);}
-.macro-card.c .num{color:var(--green);}
-.macro-card.f .num{color:var(--orange);}
-.macro-card .unit{font-size:0.65rem;color:var(--text-dim);}
-.macro-card .mlbl{font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-top:0.2rem;}
+.trio { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.6rem; margin: 0.85rem 1rem 0; }
+.macro-card { background: #ffffff; border: 2px solid #e0e0e0; border-radius: 13px; padding: 0.9rem 0.5rem; text-align: center; position: relative; overflow: hidden; box-shadow: 0 1px 5px rgba(0,0,0,0.07); }
+.macro-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; }
+.macro-card.p::after { background: #f9a825; }
+.macro-card.c::after { background: #388e3c; }
+.macro-card.f::after { background: #e65100; }
+.macro-card .num { font-size: 1.8rem; font-weight: 800; line-height: 1; }
+.macro-card.p .num { color: #f57f17; }
+.macro-card.c .num { color: #2e7d32; }
+.macro-card.f .num { color: #e65100; }
+.macro-card .unit { font-size: 0.72rem; color: #999999; }
+.macro-card .mlbl { font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: #999999; margin-top: 0.25rem; }
 
 /* Calorie banner */
-.cal-banner{margin:0.75rem 1rem 0;border-radius:14px;padding:0.95rem 1.15rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;}
-.cal-banner.tr{background:var(--green-dim);border:1px solid var(--green-border);}
-.cal-banner.rest{background:var(--blue-dim);border:1px solid var(--blue-border);}
-.cal-big{font-size:2rem;font-weight:800;}
-.cal-banner.tr .cal-big{color:#c8eecc;}
-.cal-banner.rest .cal-big{color:#b8cff0;}
-.cal-sub{font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--text-mid);}
-.cal-right{text-align:right;}
+.cal-banner { margin: 0.85rem 1rem 0; border-radius: 14px; padding: 1rem 1.2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+.cal-banner.tr { background: #e8f5e9; border: 2px solid #a5d6a7; }
+.cal-banner.rest { background: #e3f2fd; border: 2px solid #90caf9; }
+.cal-big { font-size: 2.4rem; font-weight: 800; }
+.cal-banner.tr .cal-big { color: #1b5e20; }
+.cal-banner.rest .cal-big { color: #0d47a1; }
+.cal-sub { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: #555555; }
+.cal-right { text-align: right; }
 
 /* Sleep box */
-.sleep-box{margin:0.75rem 1rem 0;background:var(--blue-dim);border:1px solid var(--blue-border);border-radius:12px;padding:1rem 1.1rem;}
-.sleep-box .sleep-lbl{font-family:'DM Mono',monospace;font-size:0.52rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--blue);margin-bottom:0.45rem;}
-.sleep-box p{font-size:0.75rem;color:#8a9888;line-height:1.6;}
-.sleep-box strong{color:#b0c8ee;}
+.sleep-box { margin: 0.85rem 1rem 0; background: #e3f2fd; border: 2px solid #90caf9; border-radius: 13px; padding: 1rem 1.1rem; }
+.sleep-lbl { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: #1565c0; margin-bottom: 0.5rem; }
+.sleep-box p { font-size: 0.8rem; color: #1a2a3a; line-height: 1.65; }
+.sleep-box strong { color: #0d47a1; font-weight: 700; }
 
 /* Meal list */
-.meal-list{display:flex;flex-direction:column;gap:0.5rem;}
-.meal-row{display:grid;grid-template-columns:90px 1fr auto;gap:0.7rem;align-items:start;padding:0.75rem 0.9rem;background:var(--bg3);border:1px solid var(--border);border-radius:9px;}
-.meal-time{font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--text-dim);padding-top:0.1rem;}
-.meal-desc{font-size:0.75rem;color:#b8c0b6;line-height:1.5;}
-.meal-nums{font-family:'DM Mono',monospace;font-size:0.55rem;color:var(--text-dim);text-align:right;white-space:nowrap;padding-top:0.1rem;}
+.meal-list { display: flex; flex-direction: column; gap: 0.55rem; }
+.meal-row { display: grid; grid-template-columns: 95px 1fr auto; gap: 0.7rem; align-items: start; padding: 0.8rem 0.9rem; background: #f9f9f9; border: 1.5px solid #e8e8e8; border-radius: 10px; }
+.meal-time { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: #999999; padding-top: 0.1rem; }
+.meal-desc { font-size: 0.8rem; color: #222222; line-height: 1.5; }
+.meal-nums { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: #888888; text-align: right; white-space: nowrap; padding-top: 0.1rem; }
 
 /* Insights */
-.insight{display:flex;gap:0.7rem;padding:0.65rem 0;border-bottom:1px solid var(--bg3);font-size:0.76rem;color:var(--text-mid);line-height:1.55;}
-.insight:last-child{border-bottom:none;padding-bottom:0;}
-.insight-ico{flex-shrink:0;font-size:0.9rem;margin-top:0.05rem;}
+.insight { display: flex; gap: 0.7rem; padding: 0.7rem 0; border-bottom: 1.5px solid #f0f0f0; font-size: 0.8rem; color: #444444; line-height: 1.6; }
+.insight:last-child { border-bottom: none; padding-bottom: 0; }
+.insight-ico { flex-shrink: 0; font-size: 1rem; margin-top: 0.05rem; }
 
-/* Log screen */
-.log-field{margin-bottom:0.85rem;}
-.log-field:last-child{margin-bottom:0;}
-.log-field label{display:block;font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--text-dim);margin-bottom:0.35rem;letter-spacing:0.05em;}
-.log-field input,.log-field select,.log-field textarea{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:0.6rem 0.8rem;border-radius:9px;font-family:'DM Mono',monospace;font-size:0.82rem;outline:none;transition:border-color 0.15s;appearance:none;}
-.log-field input:focus,.log-field select:focus,.log-field textarea:focus{border-color:var(--green);}
-.log-field select option{background:var(--bg2);}
-.log-field textarea{resize:none;height:70px;font-size:0.75rem;}
-.log-row{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
+/* Log fields */
+.log-field { margin-bottom: 0.9rem; }
+.log-field:last-child { margin-bottom: 0; }
+.log-field label { display: block; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: #555555; margin-bottom: 0.4rem; }
+.log-field input, .log-field textarea { width: 100%; background: #f5f5f5; border: 2px solid #e0e0e0; color: #111111; padding: 0.65rem 0.85rem; border-radius: 9px; font-family: 'DM Mono', monospace; font-size: 0.85rem; outline: none; transition: border-color 0.15s; }
+.log-field input:focus, .log-field textarea:focus { border-color: #388e3c; }
+.log-field input[readonly] { color: #888888; background: #eeeeee; }
+.log-field textarea { resize: none; height: 75px; font-size: 0.78rem; }
+.log-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
 
 /* Buttons */
-.btn{width:100%;padding:0.9rem;border:none;border-radius:11px;font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.14s;letter-spacing:0.02em;}
-.btn-green{background:var(--green);color:#0a0c0a;}
-.btn-green:hover{background:#96d896;}
-.btn-green:active{transform:scale(0.98);}
-.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-mid);}
-.btn-outline:active{background:var(--bg3);}
-.btn-sm{padding:0.6rem 1rem;font-size:0.78rem;border-radius:8px;width:auto;}
+.btn { width: 100%; padding: 1rem; border: none; border-radius: 12px; font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.14s; }
+.btn-green { background: #388e3c; color: #ffffff; box-shadow: 0 3px 10px rgba(46,125,50,0.3); }
+.btn-green:hover { background: #2e7d32; }
+.btn-green:active { transform: scale(0.98); }
+.btn-outline { background: #f5f5f5; border: 2px solid #e0e0e0; color: #555555; }
 
-/* Status messages */
-.status{margin:0.75rem 1rem 0;padding:0.8rem 1rem;border-radius:10px;font-family:'DM Mono',monospace;font-size:0.7rem;display:none;}
-.status.ok{background:var(--green-dim);border:1px solid var(--green-border);color:var(--green);}
-.status.err{background:rgba(232,122,106,0.1);border:1px solid rgba(232,122,106,0.25);color:var(--red);}
-.status.show{display:block;}
+/* Status */
+.status { margin: 0.75rem 1rem 0; padding: 0.85rem 1rem; border-radius: 10px; font-family: 'DM Mono', monospace; font-size: 0.72rem; display: none; }
+.status.ok { background: #e8f5e9; border: 2px solid #a5d6a7; color: #1b5e20; }
+.status.err { background: #ffebee; border: 2px solid #ef9a9a; color: #b71c1c; }
+.status.show { display: block; }
 
 /* Settings */
-.settings-field{margin-bottom:0.85rem;}
-.settings-field label{display:block;font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--text-dim);margin-bottom:0.35rem;}
-.settings-field input{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:0.6rem 0.8rem;border-radius:9px;font-family:'DM Mono',monospace;font-size:0.75rem;outline:none;transition:border-color 0.15s;}
-.settings-field input:focus{border-color:var(--green);}
-.settings-hint{font-family:'DM Mono',monospace;font-size:0.55rem;color:var(--text-dim);margin-top:0.35rem;line-height:1.5;}
-
-/* Divider */
-.divider{height:1px;background:var(--border);margin:0.75rem 1rem 0;}
-
-/* Dot indicator */
-.dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:0.4rem;}
-.dot.ok{background:var(--green);}
-.dot.warn{background:var(--gold);}
-.dot.bad{background:var(--red);}
+.settings-field { margin-bottom: 0.9rem; }
+.settings-field label { display: block; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: #555555; margin-bottom: 0.4rem; }
+.settings-field input { width: 100%; background: #f5f5f5; border: 2px solid #e0e0e0; color: #111111; padding: 0.65rem 0.85rem; border-radius: 9px; font-family: 'DM Mono', monospace; font-size: 0.78rem; outline: none; transition: border-color 0.15s; }
+.settings-field input:focus { border-color: #388e3c; }
+.settings-hint { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: #999999; margin-top: 0.4rem; line-height: 1.55; }
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 0.4rem; }
+.dot.ok { background: #388e3c; }
+.dot.warn { background: #f9a825; }
 </style>
 </head>
 <body>
 <div id="app">
   <div id="content">
 
-    <!-- ══ TODAY SCREEN ══ -->
     <div class="screen active" id="screen-today">
       <div class="page-header">
         <div class="eyebrow">Daily Inputs</div>
         <h1>Today's Macros</h1>
         <p id="today-date"></p>
       </div>
-
       <div class="card">
         <div class="card-lbl">Day Type</div>
         <div class="toggle-row">
@@ -169,19 +200,17 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
           <button class="tbtn" data-day="rest" onclick="setDay(this)">😌 Rest</button>
         </div>
       </div>
-
       <div class="card">
         <div class="card-lbl">Lumen Score</div>
         <div class="lumen-row">
-          <button class="lpill" data-l="1" onclick="setLumen(this)">1<br><span style="font-size:0.48rem">Fat</span></button>
+          <button class="lpill" data-l="1" onclick="setLumen(this)">1<br><span style="font-size:0.5rem">Fat</span></button>
           <button class="lpill" data-l="2" onclick="setLumen(this)">2</button>
-          <button class="lpill active" data-l="3" onclick="setLumen(this)">3<br><span style="font-size:0.48rem">Mixed</span></button>
+          <button class="lpill active" data-l="3" onclick="setLumen(this)">3<br><span style="font-size:0.5rem">Mixed</span></button>
           <button class="lpill" data-l="4" onclick="setLumen(this)">4</button>
-          <button class="lpill" data-l="5" onclick="setLumen(this)">5<br><span style="font-size:0.48rem">Carb</span></button>
+          <button class="lpill" data-l="5" onclick="setLumen(this)">5<br><span style="font-size:0.5rem">Carb</span></button>
         </div>
         <div class="lumen-hint">From your morning Lumen breath reading</div>
       </div>
-
       <div class="card">
         <div class="card-lbl">Recovery Signals</div>
         <div class="sfield">
@@ -197,68 +226,58 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
           <input type="range" id="sleep" min="0" max="100" value="74" oninput="slider('sleep')"/>
         </div>
       </div>
-
-      <div style="margin:0.75rem 1rem 0;">
-        <button class="btn btn-green" onclick="calculate()">Calculate →</button>
+      <div style="margin:0.85rem 1rem 0;">
+        <button class="btn btn-green" onclick="calculate()">Calculate My Macros →</button>
       </div>
     </div>
 
-    <!-- ══ RESULTS SCREEN ══ -->
     <div class="screen" id="screen-results">
       <div class="page-header">
         <div class="eyebrow">Macro Targets</div>
         <h1 id="res-title">Strength Day</h1>
-        <p id="res-sub">Tap Log to save to Airtable</p>
+        <p>Tap Log to save to Airtable</p>
       </div>
-
       <div id="cal-banner" class="cal-banner tr">
         <div>
           <div class="cal-sub" id="banner-type">STRENGTH DAY</div>
           <div class="cal-big" id="banner-kcal">—</div>
-          <div class="cal-sub" id="banner-sub2">kcal target</div>
+          <div class="cal-sub">kcal target</div>
         </div>
         <div class="cal-right">
           <div class="cal-sub">Readiness</div>
-          <div style="font-size:1.1rem;font-weight:700;color:var(--green)" id="banner-ready">—%</div>
-          <div class="cal-sub" id="banner-deficit">~200 kcal deficit</div>
+          <div style="font-size:1.3rem;font-weight:800;" id="banner-ready">—%</div>
+          <div class="cal-sub" id="banner-deficit"></div>
         </div>
       </div>
-
       <div class="trio">
         <div class="macro-card p"><div class="num" id="r-protein">—</div><div class="unit">g</div><div class="mlbl">Protein</div></div>
         <div class="macro-card c"><div class="num" id="r-carbs">—</div><div class="unit">g</div><div class="mlbl">Carbs</div></div>
         <div class="macro-card f"><div class="num" id="r-fat">—</div><div class="unit">g</div><div class="mlbl">Fat</div></div>
       </div>
-
       <div class="sleep-box">
         <div class="sleep-lbl">🌙 Sleep Carb Window · Dinner</div>
         <p id="sleep-note">—</p>
       </div>
-
       <div class="card">
         <div class="card-lbl">Meal Structure</div>
         <div class="meal-list" id="meal-list"></div>
       </div>
-
       <div class="card">
         <div class="card-lbl">Insights</div>
         <div id="insights-list"></div>
       </div>
-
-      <div style="margin:0.75rem 1rem 0;display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+      <div style="margin:0.85rem 1rem 0;display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
         <button class="btn btn-outline" onclick="showTab('today')">← Adjust</button>
         <button class="btn btn-green" onclick="goLog()">Log to Airtable →</button>
       </div>
     </div>
 
-    <!-- ══ LOG SCREEN ══ -->
     <div class="screen" id="screen-log">
       <div class="page-header">
         <div class="eyebrow">Airtable Log</div>
         <h1>Log Today</h1>
-        <p>Targets auto-filled · add actuals + sleep notes</p>
+        <p>Targets auto-filled · add actuals + notes</p>
       </div>
-
       <div class="card">
         <div class="card-lbl">Targets (auto-filled)</div>
         <div class="log-row">
@@ -268,7 +287,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
           <div class="log-field"><label>Target Calories</label><input id="l-tcal" type="number" readonly/></div>
         </div>
       </div>
-
       <div class="card">
         <div class="card-lbl">Actuals (from Cronometer)</div>
         <div class="log-row">
@@ -278,22 +296,19 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
           <div class="log-field"><label>Actual Calories</label><input id="l-acal" type="number" placeholder="0"/></div>
         </div>
       </div>
-
       <div class="card">
         <div class="card-lbl">Sleep Outcome (next morning)</div>
         <div class="log-field">
           <label>Next Morning Sleep Score</label>
-          <input id="l-nextsleep" type="number" min="0" max="100" placeholder="Fill in tomorrow"/>
+          <input id="l-nextsleep" type="number" min="0" max="100" placeholder="Fill in tomorrow morning"/>
         </div>
         <div class="log-field">
           <label>Notes</label>
           <textarea id="l-notes" placeholder="How did you feel? Any sleep disruptions?"></textarea>
         </div>
       </div>
-
       <div id="log-status" class="status"></div>
-
-      <div style="margin:0.75rem 1rem 0;">
+      <div style="margin:0.85rem 1rem 0;">
         <button class="btn btn-green" onclick="logToAirtable()" id="log-btn">Send to Airtable ↑</button>
       </div>
       <div style="margin:0.5rem 1rem 0;">
@@ -301,30 +316,25 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
       </div>
     </div>
 
-    <!-- ══ HISTORY SCREEN ══ -->
     <div class="screen" id="screen-history">
       <div class="page-header">
         <div class="eyebrow">Airtable Sync</div>
         <h1>History</h1>
         <p>Last 10 entries from your Airtable base</p>
       </div>
-
-      <div style="margin:0.75rem 1rem 0;">
+      <div style="margin:0.85rem 1rem 0;">
         <button class="btn btn-outline" onclick="fetchHistory()">↻ Refresh from Airtable</button>
       </div>
-
       <div id="history-status" class="status"></div>
       <div id="history-list" style="margin-top:0.5rem;"></div>
     </div>
 
-    <!-- ══ SETTINGS SCREEN ══ -->
     <div class="screen" id="screen-settings">
       <div class="page-header">
         <div class="eyebrow">Configuration</div>
         <h1>Settings</h1>
-        <p>Airtable credentials — stored locally on your device</p>
+        <p>Airtable credentials — stored on your device only</p>
       </div>
-
       <div class="card">
         <div class="card-lbl">Airtable Connection</div>
         <div class="settings-field">
@@ -335,24 +345,22 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
         <div class="settings-field">
           <label>Base ID</label>
           <input type="text" id="s-base" placeholder="appXXXXXXXXXXXXXX" oninput="saveSettings()"/>
-          <div class="settings-hint">Open your base in browser → copy the appXXX... from the URL</div>
+          <div class="settings-hint">Open your base in a browser → copy the appXXX... from the URL bar</div>
         </div>
         <div class="settings-field">
           <label>Table Name</label>
           <input type="text" id="s-table" placeholder="Macros" oninput="saveSettings()"/>
           <div class="settings-hint">Exact name of your table in Airtable (case-sensitive)</div>
         </div>
-
-        <div id="conn-status" style="margin-top:0.8rem;font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--text-dim);">
+        <div id="conn-status" style="margin-top:0.9rem;font-family:'DM Mono',monospace;font-size:0.68rem;color:#999999;">
           <span class="dot warn"></span>Not configured
         </div>
       </div>
-
       <div class="card">
-        <div class="card-lbl">Airtable Table Schema</div>
-        <p style="font-size:0.72rem;color:var(--text-mid);line-height:1.7;">
-          Create a table with these field names exactly:<br/>
-          <span style="font-family:'DM Mono',monospace;color:var(--green);font-size:0.65rem;">
+        <div class="card-lbl">Required Airtable Fields</div>
+        <p style="font-size:0.78rem;color:#555555;line-height:1.8;">
+          Create these fields in your Macros table:<br/>
+          <span style="font-family:'DM Mono',monospace;color:#2e7d32;font-size:0.68rem;">
             Date · Day Type · Lumen Score · HRV · Recovery Score · Sleep Score ·
             Target Protein · Target Carbs · Target Fat · Target Calories ·
             Actual Protein · Actual Carbs · Actual Fat · Actual Calories ·
@@ -360,21 +368,19 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
           </span>
         </p>
       </div>
-
       <div class="card">
         <div class="card-lbl">About</div>
-        <p style="font-size:0.72rem;color:var(--text-mid);line-height:1.7;">
-          Macro Optimizer v2 · Built for body recomp at 77.5 kg<br/>
-          Integrates: Lumen · Oura · AutoSleep · Athlytic<br/>
-          Calorie anchor: ~1760–2020 kcal/day (carb cycling)<br/>
-          Protein floor: 2.1 g/kg lean mass · Sleep carb window: 25–30g
+        <p style="font-size:0.78rem;color:#555555;line-height:1.8;">
+          Macro Optimizer v2 · Body recomp at 77.5 kg<br/>
+          Tools: Lumen · Oura · AutoSleep · Athlytic<br/>
+          Calories: ~1760–2020 kcal/day with carb cycling<br/>
+          Protein: 2.1 g/kg lean mass · Sleep carbs: 25–30g
         </p>
       </div>
     </div>
 
-  </div><!-- /content -->
+  </div>
 
-  <!-- Tab bar -->
   <div id="tabbar">
     <button class="tab active" onclick="showTab('today')">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
@@ -400,351 +406,154 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;heigh
 </div>
 
 <script>
-// ── State ──────────────────────────────────────────────────────────────────
-const state = {
-  dayType: 'strength', lumenScore: 3,
-  hrv: 58, rec: 72, sleep: 74,
-  results: null
-};
+const state={dayType:'strength',lumenScore:3,hrv:58,rec:72,sleep:74,results:null};
 
-// ── Init ──────────────────────────────────────────────────────────────────
-window.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-GB', {weekday:'long',day:'numeric',month:'long'});
-  loadSettings();
-  updateConnStatus();
+window.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('today-date').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+  loadSettings(); updateConnStatus();
 });
 
-// ── Navigation ────────────────────────────────────────────────────────────
-function showTab(name) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('screen-' + name).classList.add('active');
-  const tabs = {today:0, results:1, log:2, history:3, settings:4};
+function showTab(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  const tabs={today:0,results:1,log:2,history:3,settings:4};
   document.querySelectorAll('.tab')[tabs[name]].classList.add('active');
-  document.getElementById('content').scrollTop = 0;
+  document.getElementById('content').scrollTop=0;
+}
+function setDay(el){document.querySelectorAll('[data-day]').forEach(b=>b.classList.remove('active'));el.classList.add('active');state.dayType=el.dataset.day;}
+function setLumen(el){document.querySelectorAll('[data-l]').forEach(b=>b.classList.remove('active'));el.classList.add('active');state.lumenScore=+el.dataset.l;}
+function slider(id){const val=+document.getElementById(id).value;state[id]=val;const map={hrv:'hrv-val',rec:'rec-val',sleep:'sleep-val'};document.getElementById(map[id]).textContent=val;}
+
+function calcMacros(){
+  const{dayType,lumenScore,hrv,rec,sleep}=state;
+  const isTraining=dayType!=='rest';
+  const readiness=(rec*0.55+(Math.min(hrv,120)/120)*100*0.30+sleep*0.15)/100;
+  let baseCals=dayType==='strength'?2020:dayType==='cardio'?1980:1760;
+  let targetCals=baseCals+Math.round((readiness-0.7)*267);
+  targetCals=Math.max(1600,Math.min(2150,targetCals));
+  const protein=Math.round(77.5*0.74*2.1);
+  const sleepCarb=sleep<70?30:25;
+  let periCarb=0,preCarb=0,postCarb=0;
+  if(isTraining){periCarb=dayType==='strength'?40:35;preCarb=Math.round(periCarb*0.45);postCarb=periCarb-preCarb;}
+  const remaining=targetCals-protein*4-sleepCarb*4-periCarb*4;
+  const lumenRatio=(lumenScore-1)/4;
+  let carbFrac=Math.min(0.65,0.28+lumenRatio*0.35+(isTraining?0.15:0));
+  const workingCarbs=Math.round(remaining*carbFrac/4);
+  const workingFat=Math.round(remaining*(1-carbFrac)/9);
+  const totalCarbs=workingCarbs+periCarb+sleepCarb;
+  const totalCals=Math.round(protein*4+totalCarbs*4+workingFat*9);
+  return{protein,carbs:totalCarbs,fat:workingFat,totalCals,sleepCarb,preCarb,postCarb,isTraining,readiness:Math.round(readiness*100),deficit:isTraining?'150–250':'350–500'};
 }
 
-// ── Inputs ────────────────────────────────────────────────────────────────
-function setDay(el) {
-  document.querySelectorAll('[data-day]').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  state.dayType = el.dataset.day;
-}
-function setLumen(el) {
-  document.querySelectorAll('[data-l]').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  state.lumenScore = +el.dataset.l;
-}
-function slider(id) {
-  const val = +document.getElementById(id).value;
-  state[id] = val;
-  const map = {hrv:'hrv-val', rec:'rec-val', sleep:'sleep-val'};
-  document.getElementById(map[id]).textContent = val;
+function calculate(){
+  const r=calcMacros();state.results=r;
+  document.getElementById('cal-banner').className='cal-banner '+(r.isTraining?'tr':'rest');
+  document.getElementById('banner-type').textContent=state.dayType==='strength'?'STRENGTH DAY':state.dayType==='cardio'?'ZONE 2 DAY':'REST DAY';
+  document.getElementById('banner-kcal').textContent=r.totalCals;
+  const re=document.getElementById('banner-ready');re.textContent=r.readiness+'%';
+  re.style.color=r.readiness>=75?'#2e7d32':r.readiness>=55?'#f57f17':'#c62828';
+  document.getElementById('banner-deficit').textContent='~'+r.deficit+' kcal deficit';
+  document.getElementById('res-title').textContent=state.dayType==='strength'?'Strength Day':state.dayType==='cardio'?'Zone 2 Day':'Rest Day';
+  document.getElementById('r-protein').textContent=r.protein;
+  document.getElementById('r-carbs').textContent=r.carbs;
+  document.getElementById('r-fat').textContent=r.fat;
+  document.getElementById('sleep-note').innerHTML='Target <strong>'+r.sleepCarb+'g complex carbs</strong> with dinner, 2–3 hours before bed. '+(state.sleep<70?'Sleep was disrupted last night — slightly increased to '+r.sleepCarb+'g tonight. ':'Sleep was good — hold at '+r.sleepCarb+'g. ')+'Best sources: ½ cup sweet potato (~15g), ½ cup lentils (~20g), small bowl of oats. Avoid exceeding ~35g refined carbs at dinner as this tends to fragment sleep.';
+  buildMeals(r);buildInsights(r);showTab('results');
 }
 
-// ── Algorithm ─────────────────────────────────────────────────────────────
-function calcMacros() {
-  const {dayType, lumenScore, hrv, rec, sleep} = state;
-  const isTraining = dayType !== 'rest';
-
-  const readiness = (rec * 0.55 + (Math.min(hrv, 120) / 120) * 100 * 0.30 + sleep * 0.15) / 100;
-
-  let baseCals = dayType === 'strength' ? 2020 : dayType === 'cardio' ? 1980 : 1760;
-  let targetCals = baseCals + Math.round((readiness - 0.7) * 267);
-  targetCals = Math.max(1600, Math.min(2150, targetCals));
-
-  // Protein: 2.1g/kg lean mass (74% of 77.5kg)
-  const leanMass = 77.5 * 0.74;
-  const protein = Math.round(leanMass * 2.1);
-  const proteinCals = protein * 4;
-
-  // Sleep carb window
-  const sleepCarb = sleep < 70 ? 30 : 25;
-  const sleepCarbCals = sleepCarb * 4;
-
-  // Peri-workout carbs
-  let periCarb = 0, preCarb = 0, postCarb = 0;
-  if (isTraining) {
-    periCarb = dayType === 'strength' ? 40 : 35;
-    preCarb = Math.round(periCarb * 0.45);
-    postCarb = periCarb - preCarb;
-  }
-
-  // Remaining for Lumen-driven split
-  const remaining = targetCals - proteinCals - sleepCarbCals - periCarb * 4;
-  const lumenRatio = (lumenScore - 1) / 4;
-  const trainingBias = isTraining ? 0.15 : 0;
-  let carbFrac = Math.min(0.65, 0.28 + lumenRatio * 0.35 + trainingBias);
-  const fatFrac = 1 - carbFrac;
-
-  const workingCarbs = Math.round(remaining * carbFrac / 4);
-  const workingFat = Math.round(remaining * fatFrac / 9);
-
-  const totalCarbs = workingCarbs + periCarb + sleepCarb;
-  const totalFat = workingFat;
-  const totalCals = Math.round(protein * 4 + totalCarbs * 4 + totalFat * 9);
-
-  return {
-    protein, carbs: totalCarbs, fat: totalFat, totalCals,
-    sleepCarb, preCarb, postCarb, isTraining,
-    readiness: Math.round(readiness * 100),
-    deficit: isTraining ? '150–250' : '350–500'
-  };
-}
-
-function calculate() {
-  const r = calcMacros();
-  state.results = r;
-
-  // Banner
-  const banner = document.getElementById('cal-banner');
-  banner.className = 'cal-banner ' + (r.isTraining ? 'tr' : 'rest');
-  document.getElementById('banner-type').textContent =
-    state.dayType === 'strength' ? 'STRENGTH DAY' : state.dayType === 'cardio' ? 'ZONE 2 DAY' : 'REST DAY';
-  document.getElementById('banner-kcal').textContent = r.totalCals;
-  document.getElementById('banner-ready').textContent = r.readiness + '%';
-  document.getElementById('banner-ready').style.color = r.readiness >= 75 ? 'var(--green)' : r.readiness >= 55 ? 'var(--gold)' : 'var(--red)';
-  document.getElementById('banner-deficit').textContent = '~' + r.deficit + ' kcal deficit';
-  document.getElementById('res-title').textContent =
-    state.dayType === 'strength' ? 'Strength Day' : state.dayType === 'cardio' ? 'Zone 2 Day' : 'Rest Day';
-
-  // Macros
-  document.getElementById('r-protein').textContent = r.protein;
-  document.getElementById('r-carbs').textContent = r.carbs;
-  document.getElementById('r-fat').textContent = r.fat;
-
-  // Sleep note
-  document.getElementById('sleep-note').innerHTML =
-    `Target <strong>${r.sleepCarb}g complex carbs</strong> with dinner, 2–3 hrs before bed. ` +
-    (state.sleep < 70
-      ? `Sleep was disrupted last night — bumped slightly to ${r.sleepCarb}g. `
-      : `Sleep was decent — hold at ${r.sleepCarb}g. `) +
-    `Best sources: ½ cup sweet potato (~15g), ½ cup lentils (~20g), small bowl oats. ` +
-    `Over ~35g refined carbs at dinner tends to fragment sleep in the second half of the night.`;
-
-  // Meals
-  buildMeals(r);
-
-  // Insights
-  buildInsights(r);
-
-  showTab('results');
-}
-
-function buildMeals(r) {
-  const {protein: p, carbs: c, fat: f, sleepCarb, preCarb, postCarb, isTraining} = r;
-  const list = document.getElementById('meal-list');
-  list.innerHTML = '';
-  const meals = isTraining ? [
-    {t:'Breakfast', d:`Eggs / Greek yogurt + oats`, m:`P${Math.round(p*.28)} C${Math.round(c*.18)} F${Math.round(f*.30)}`},
-    {t:'Pre-workout', d:`Banana or rice cake + small protein · ${preCarb}g quick carbs`, m:`P${Math.round(p*.10)} C${preCarb} F5`},
-    {t:'Post-workout', d:`Protein shake or chicken + white rice · ${postCarb}g fast carbs`, m:`P${Math.round(p*.25)} C${postCarb} F${Math.round(f*.10)}`},
-    {t:'Lunch', d:`Lean protein + salad + olive oil`, m:`P${Math.round(p*.22)} C${Math.round(c*.22)} F${Math.round(f*.35)}`},
-    {t:'Dinner', d:`Lean protein + veg + ${sleepCarb}g slow carbs (sweet potato / lentils)`, m:`P${Math.round(p*.15)} C${sleepCarb} F${Math.round(f*.25)}`},
-  ] : [
-    {t:'Breakfast', d:`Eggs or cottage cheese + greens — high protein, low carb`, m:`P${Math.round(p*.30)} C${Math.round(c*.15)} F${Math.round(f*.35)}`},
-    {t:'Lunch', d:`Tuna / chicken salad with avocado + olive oil dressing`, m:`P${Math.round(p*.32)} C${Math.round(c*.30)} F${Math.round(f*.35)}`},
-    {t:'Snack', d:`Greek yogurt or small handful of nuts (skip if not hungry)`, m:`P${Math.round(p*.13)} C${Math.round(c*.20)} F${Math.round(f*.15)}`},
-    {t:'Dinner', d:`Lean protein + veg + ${sleepCarb}g slow carbs (sweet potato / quinoa)`, m:`P${Math.round(p*.25)} C${sleepCarb} F${Math.round(f*.15)}`},
+function buildMeals(r){
+  const{protein:p,carbs:c,fat:f,sleepCarb,preCarb,postCarb,isTraining}=r;
+  const list=document.getElementById('meal-list');list.innerHTML='';
+  const meals=isTraining?[
+    {t:'Breakfast',d:'Eggs or Greek yogurt + oats',m:'P'+Math.round(p*.28)+' C'+Math.round(c*.18)+' F'+Math.round(f*.30)},
+    {t:'Pre-workout',d:'Banana or rice cake · '+preCarb+'g quick carbs',m:'P'+Math.round(p*.10)+' C'+preCarb+' F5'},
+    {t:'Post-workout',d:'Protein shake or chicken + rice · '+postCarb+'g fast carbs',m:'P'+Math.round(p*.25)+' C'+postCarb+' F'+Math.round(f*.10)},
+    {t:'Lunch',d:'Lean protein + salad + olive oil',m:'P'+Math.round(p*.22)+' C'+Math.round(c*.22)+' F'+Math.round(f*.35)},
+    {t:'Dinner',d:'Lean protein + vegetables + '+sleepCarb+'g slow carbs',m:'P'+Math.round(p*.15)+' C'+sleepCarb+' F'+Math.round(f*.25)},
+  ]:[
+    {t:'Breakfast',d:'Eggs or cottage cheese + greens',m:'P'+Math.round(p*.30)+' C'+Math.round(c*.15)+' F'+Math.round(f*.35)},
+    {t:'Lunch',d:'Tuna or chicken salad with avocado + olive oil',m:'P'+Math.round(p*.32)+' C'+Math.round(c*.30)+' F'+Math.round(f*.35)},
+    {t:'Snack',d:'Greek yogurt or small handful of nuts',m:'P'+Math.round(p*.13)+' C'+Math.round(c*.20)+' F'+Math.round(f*.15)},
+    {t:'Dinner',d:'Lean protein + vegetables + '+sleepCarb+'g slow carbs',m:'P'+Math.round(p*.25)+' C'+sleepCarb+' F'+Math.round(f*.15)},
   ];
-  meals.forEach(m => {
-    list.innerHTML += `<div class="meal-row"><div class="meal-time">${m.t}</div><div class="meal-desc">${m.d}</div><div class="meal-nums">${m.m}</div></div>`;
-  });
+  meals.forEach(m=>{list.innerHTML+='<div class="meal-row"><div class="meal-time">'+m.t+'</div><div class="meal-desc">'+m.d+'</div><div class="meal-nums">'+m.m+'</div></div>';});
 }
 
-function buildInsights(r) {
-  const list = document.getElementById('insights-list');
-  list.innerHTML = '';
-  const ins = [];
-  const {lumenScore, rec, hrv, sleep} = state;
-  const {isTraining, readiness} = r;
-
-  if (lumenScore <= 2 && isTraining)
-    ins.push({i:'⚡', t:`Lumen shows fat-burn but you're training — peri-workout carbs override Lumen for performance. Keep the rest of the day fat-focused.`});
-  else if (lumenScore <= 2)
-    ins.push({i:'🔥', t:`Lumen shows fat-burn on a rest day — ideal. Your body is accessing stored fat. Keep carbs to the dinner window only.`});
-  else if (lumenScore >= 4)
-    ins.push({i:'⚡', t:`Lumen shows carb-burn. Carbs bumped accordingly. Good day to train hard — glycogen stores are primed.`});
-
-  if (readiness < 55)
-    ins.push({i:'😴', t:`Low readiness (HRV ${hrv}ms / Recovery ${rec}%). Calories pulled slightly lower. Consider dropping training intensity — cortisol from overtraining blocks fat loss and fragments sleep.`});
-  else if (readiness > 80)
-    ins.push({i:'💚', t:`Strong readiness. Well-recovered and primed — good day to push hard and absorb the carb allocation effectively.`});
-
-  if (sleep < 65)
-    ins.push({i:'🌙', t:`Sleep below 65 last night. Poor sleep elevates ghrelin (hunger) and cortisol. Stick to protein targets closely to prevent muscle catabolism.`});
-
-  ins.push({i:'📊', t:`Recomp target: ~0.3–0.5 kg fat loss/week while maintaining lean mass. Expect visible changes over 10–16 weeks with consistent training and protein intake.`});
-
-  ins.forEach(({i, t}) => {
-    list.innerHTML += `<div class="insight"><span class="insight-ico">${i}</span><span>${t}</span></div>`;
-  });
+function buildInsights(r){
+  const list=document.getElementById('insights-list');list.innerHTML='';
+  const ins=[];
+  const{lumenScore,rec,hrv,sleep}=state;const{isTraining,readiness}=r;
+  if(lumenScore<=2&&isTraining)ins.push({i:'⚡',t:"Lumen shows fat-burn but you're training — peri-workout carbs take priority. Keep the rest of the day fat-focused."});
+  else if(lumenScore<=2)ins.push({i:'🔥',t:'Lumen shows fat-burn on a rest day — ideal. Your body is using stored fat as fuel. Keep carbs only in the dinner window.'});
+  else if(lumenScore>=4)ins.push({i:'⚡',t:'Lumen shows carb-burn mode. Carbs bumped accordingly. Good day to train hard — glycogen stores are primed.'});
+  if(readiness<55)ins.push({i:'😴',t:'Low readiness today (HRV '+hrv+'ms / Recovery '+rec+'%). Calories slightly reduced. Consider lighter training today.'});
+  else if(readiness>80)ins.push({i:'💚',t:'Strong readiness. Well-recovered — great day to push hard and make full use of the carb allocation.'});
+  if(sleep<65)ins.push({i:'🌙',t:'Sleep was below 65 last night. Stay close to your protein target today to protect muscle tissue.'});
+  ins.push({i:'📊',t:'Recomp goal: ~0.3–0.5 kg fat loss per week while maintaining lean mass. Expect visible changes over 10–16 weeks.'});
+  ins.forEach(function(x){list.innerHTML+='<div class="insight"><span class="insight-ico">'+x.i+'</span><span>'+x.t+'</span></div>';});
 }
 
-// ── Log to Airtable ───────────────────────────────────────────────────────
-function goLog() {
-  if (!state.results) { calculate(); return; }
-  const r = state.results;
-  document.getElementById('l-tprot').value = r.protein;
-  document.getElementById('l-tcarb').value = r.carbs;
-  document.getElementById('l-tfat').value = r.fat;
-  document.getElementById('l-tcal').value = r.totalCals;
+function goLog(){
+  if(!state.results){calculate();return;}
+  const r=state.results;
+  document.getElementById('l-tprot').value=r.protein;
+  document.getElementById('l-tcarb').value=r.carbs;
+  document.getElementById('l-tfat').value=r.fat;
+  document.getElementById('l-tcal').value=r.totalCals;
   showTab('log');
 }
 
-async function logToAirtable() {
-  const token = localStorage.getItem('at_token') || '';
-  const base  = localStorage.getItem('at_base')  || '';
-  const table = localStorage.getItem('at_table') || 'Macros';
+async function logToAirtable(){
+  const token=localStorage.getItem('at_token')||'';
+  const base=localStorage.getItem('at_base')||'';
+  const table=localStorage.getItem('at_table')||'Macros';
+  if(!token||!base){showStatus('log-status','err','Please add your Airtable token and Base ID in Settings first.');return;}
+  const btn=document.getElementById('log-btn');btn.textContent='Sending…';btn.disabled=true;
+  const r=state.results||{};
+  const fields={'Date':new Date().toISOString().split('T')[0],'Day Type':state.dayType.charAt(0).toUpperCase()+state.dayType.slice(1),'Lumen Score':state.lumenScore,'HRV':state.hrv,'Recovery Score':state.rec,'Sleep Score':state.sleep,'Target Protein':r.protein||0,'Target Carbs':r.carbs||0,'Target Fat':r.fat||0,'Target Calories':r.totalCals||0,'Actual Protein':+document.getElementById('l-aprot').value||0,'Actual Carbs':+document.getElementById('l-acarb').value||0,'Actual Fat':+document.getElementById('l-afat').value||0,'Actual Calories':+document.getElementById('l-acal').value||0,'Notes':document.getElementById('l-notes').value||''};
+  const ns=document.getElementById('l-nextsleep').value;if(ns)fields['Next Sleep Score']=+ns;
+  try{
+    const res=await fetch('https://api.airtable.com/v0/'+base+'/'+encodeURIComponent(table),{method:'POST',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify({fields:fields})});
+    const data=await res.json();
+    if(data.id){showStatus('log-status','ok','Logged successfully!');['l-aprot','l-acarb','l-afat','l-acal','l-nextsleep','l-notes'].forEach(function(id){document.getElementById(id).value='';});}
+    else showStatus('log-status','err','Error: '+(data.error&&data.error.message||'Unknown error'));
+  }catch(e){showStatus('log-status','err','Network error: '+e.message);}
+  btn.textContent='Send to Airtable ↑';btn.disabled=false;
+}
 
-  if (!token || token.startsWith('pat_PLACEHOLDER') || !base || base.startsWith('app_PLACEHOLDER')) {
-    showStatus('log-status', 'err', '⚠ Add your Airtable token and Base ID in Settings first.');
-    return;
-  }
-
-  const btn = document.getElementById('log-btn');
-  btn.textContent = 'Sending…'; btn.disabled = true;
-
-  const r = state.results || {};
-  const fields = {
-    'Date': new Date().toISOString().split('T')[0],
-    'Day Type': state.dayType.charAt(0).toUpperCase() + state.dayType.slice(1),
-    'Lumen Score': state.lumenScore,
-    'HRV': state.hrv,
-    'Recovery Score': state.rec,
-    'Sleep Score': state.sleep,
-    'Target Protein': r.protein || 0,
-    'Target Carbs': r.carbs || 0,
-    'Target Fat': r.fat || 0,
-    'Target Calories': r.totalCals || 0,
-    'Actual Protein': +document.getElementById('l-aprot').value || 0,
-    'Actual Carbs': +document.getElementById('l-acarb').value || 0,
-    'Actual Fat': +document.getElementById('l-afat').value || 0,
-    'Actual Calories': +document.getElementById('l-acal').value || 0,
-    'Notes': document.getElementById('l-notes').value || '',
-  };
-  const nextSleep = document.getElementById('l-nextsleep').value;
-  if (nextSleep) fields['Next Sleep Score'] = +nextSleep;
-
-  try {
-    const res = await fetch(`https://api.airtable.com/v0/${base}/${encodeURIComponent(table)}`, {
-      method: 'POST',
-      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fields })
+async function fetchHistory(){
+  const token=localStorage.getItem('at_token')||'';
+  const base=localStorage.getItem('at_base')||'';
+  const table=localStorage.getItem('at_table')||'Macros';
+  if(!token||!base){showStatus('history-status','err','Configure Airtable in Settings first.');return;}
+  showStatus('history-status','ok','Fetching…');
+  try{
+    const res=await fetch('https://api.airtable.com/v0/'+base+'/'+encodeURIComponent(table)+'?sort[0][field]=Date&sort[0][direction]=desc&maxRecords=10',{headers:{'Authorization':'Bearer '+token}});
+    const data=await res.json();
+    if(!data.records){showStatus('history-status','err','Error: '+(data.error&&data.error.message||'Failed'));return;}
+    showStatus('history-status','ok',data.records.length+' records loaded');
+    const list=document.getElementById('history-list');list.innerHTML='';
+    data.records.forEach(function(rec){
+      const f=rec.fields;
+      const delta=(f['Actual Calories']&&f['Target Calories'])?f['Actual Calories']-f['Target Calories']:null;
+      list.innerHTML+='<div class="card" style="margin-top:0.6rem;"><div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.7rem;"><span style="font-weight:800;font-size:1rem;">'+(f['Date']||'—')+'</span><span style="font-family:DM Mono,monospace;font-size:0.65rem;color:#888;">'+(f['Day Type']||'')+'</span></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.4rem;font-family:DM Mono,monospace;font-size:0.65rem;"><div><div style="color:#f57f17;font-weight:700;">P '+(f['Actual Protein']||'—')+'g</div><div style="color:#999">tgt '+(f['Target Protein']||'—')+'</div></div><div><div style="color:#2e7d32;font-weight:700;">C '+(f['Actual Carbs']||'—')+'g</div><div style="color:#999">tgt '+(f['Target Carbs']||'—')+'</div></div><div><div style="color:#e65100;font-weight:700;">F '+(f['Actual Fat']||'—')+'g</div><div style="color:#999">tgt '+(f['Target Fat']||'—')+'</div></div><div><div style="color:'+(delta===null?'#888':delta>100?'#c62828':'#2e7d32')+';font-weight:700;">'+(f['Actual Calories']||'—')+' kcal</div><div style="color:#999">'+(delta!==null?(delta>0?'+':'')+delta:'')+'</div></div></div>'+(f['Next Sleep Score']?'<div style="margin-top:0.6rem;font-family:DM Mono,monospace;font-size:0.65rem;color:#1565c0;">🌙 Next sleep: '+f['Next Sleep Score']+'</div>':'')+(f['Notes']?'<div style="margin-top:0.4rem;font-size:0.78rem;color:#555;">'+f['Notes']+'</div>':'')+'</div>';
     });
-    const data = await res.json();
-    if (data.id) {
-      showStatus('log-status', 'ok', '✓ Logged successfully · ID: ' + data.id);
-      document.getElementById('l-aprot').value = '';
-      document.getElementById('l-acarb').value = '';
-      document.getElementById('l-afat').value = '';
-      document.getElementById('l-acal').value = '';
-      document.getElementById('l-nextsleep').value = '';
-      document.getElementById('l-notes').value = '';
-    } else {
-      showStatus('log-status', 'err', '✗ ' + (data.error?.message || JSON.stringify(data.error) || 'Unknown error'));
-    }
-  } catch (e) {
-    showStatus('log-status', 'err', '✗ Network error — check connection: ' + e.message);
-  }
-
-  btn.textContent = 'Send to Airtable ↑'; btn.disabled = false;
+  }catch(e){showStatus('history-status','err','Network error: '+e.message);}
 }
 
-// ── Fetch History ─────────────────────────────────────────────────────────
-async function fetchHistory() {
-  const token = localStorage.getItem('at_token') || '';
-  const base  = localStorage.getItem('at_base')  || '';
-  const table = localStorage.getItem('at_table') || 'Macros';
-
-  if (!token || token.startsWith('pat_PLACEHOLDER') || !base || base.startsWith('app_PLACEHOLDER')) {
-    showStatus('history-status', 'err', '⚠ Configure Airtable credentials in Settings first.');
-    return;
-  }
-
-  showStatus('history-status', 'ok', 'Fetching…');
-  try {
-    const url = `https://api.airtable.com/v0/${base}/${encodeURIComponent(table)}?sort[0][field]=Date&sort[0][direction]=desc&maxRecords=10`;
-    const res = await fetch(url, { headers: { 'Authorization': `Bearer ${token}` } });
-    const data = await res.json();
-    if (!data.records) {
-      showStatus('history-status', 'err', '✗ ' + (data.error?.message || 'Failed to fetch'));
-      return;
-    }
-    showStatus('history-status', 'ok', `✓ ${data.records.length} records loaded`);
-    renderHistory(data.records);
-  } catch(e) {
-    showStatus('history-status', 'err', '✗ ' + e.message);
-  }
+function saveSettings(){localStorage.setItem('at_token',document.getElementById('s-token').value);localStorage.setItem('at_base',document.getElementById('s-base').value);localStorage.setItem('at_table',document.getElementById('s-table').value||'Macros');updateConnStatus();}
+function loadSettings(){document.getElementById('s-token').value=localStorage.getItem('at_token')||'';document.getElementById('s-base').value=localStorage.getItem('at_base')||'';document.getElementById('s-table').value=localStorage.getItem('at_table')||'Macros';}
+function updateConnStatus(){
+  const el=document.getElementById('conn-status');
+  const token=localStorage.getItem('at_token')||'';
+  const base=localStorage.getItem('at_base')||'';
+  if(token&&base){el.innerHTML='<span class="dot ok"></span>Configured — ready to log';el.style.color='#2e7d32';}
+  else if(token||base){el.innerHTML='<span class="dot warn"></span>Partially configured';el.style.color='#f57f17';}
+  else{el.innerHTML='<span class="dot warn"></span>Not configured';el.style.color='#999999';}
 }
-
-function renderHistory(records) {
-  const list = document.getElementById('history-list');
-  list.innerHTML = '';
-  if (!records.length) { list.innerHTML = '<div style="padding:1rem;color:var(--text-dim);font-family:DM Mono,monospace;font-size:0.7rem;">No records found.</div>'; return; }
-  records.forEach(rec => {
-    const f = rec.fields;
-    const actual = f['Actual Calories'];
-    const target = f['Target Calories'];
-    const delta = actual && target ? actual - target : null;
-    list.innerHTML += `
-      <div class="card" style="margin-top:0.6rem;">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:0.6rem;">
-          <span style="font-weight:700;color:#f0f4ee;">${f['Date'] || '—'}</span>
-          <span style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--text-dim);">${f['Day Type'] || ''}</span>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.4rem;font-family:'DM Mono',monospace;font-size:0.62rem;">
-          <div><div style="color:var(--gold);">P ${f['Actual Protein'] || '—'}g</div><div style="color:var(--text-dim)">tgt ${f['Target Protein'] || '—'}</div></div>
-          <div><div style="color:var(--green);">C ${f['Actual Carbs'] || '—'}g</div><div style="color:var(--text-dim)">tgt ${f['Target Carbs'] || '—'}</div></div>
-          <div><div style="color:var(--orange);">F ${f['Actual Fat'] || '—'}g</div><div style="color:var(--text-dim)">tgt ${f['Target Fat'] || '—'}</div></div>
-          <div><div style="color:${delta === null ? 'var(--text-mid)' : delta > 100 ? 'var(--red)' : 'var(--green)'};">${actual || '—'} kcal</div><div style="color:var(--text-dim)">${delta !== null ? (delta > 0 ? '+' : '') + delta : ''}</div></div>
-        </div>
-        ${f['Next Sleep Score'] ? `<div style="margin-top:0.5rem;font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--blue);">🌙 Next sleep: ${f['Next Sleep Score']}</div>` : ''}
-        ${f['Notes'] ? `<div style="margin-top:0.4rem;font-size:0.7rem;color:var(--text-mid);">${f['Notes']}</div>` : ''}
-      </div>`;
-  });
-}
-
-// ── Settings ──────────────────────────────────────────────────────────────
-function saveSettings() {
-  localStorage.setItem('at_token', document.getElementById('s-token').value);
-  localStorage.setItem('at_base',  document.getElementById('s-base').value);
-  localStorage.setItem('at_table', document.getElementById('s-table').value || 'Macros');
-  updateConnStatus();
-}
-function loadSettings() {
-  document.getElementById('s-token').value = localStorage.getItem('at_token') || '';
-  document.getElementById('s-base').value  = localStorage.getItem('at_base')  || '';
-  document.getElementById('s-table').value = localStorage.getItem('at_table') || 'Macros';
-}
-function updateConnStatus() {
-  const el = document.getElementById('conn-status');
-  const token = localStorage.getItem('at_token') || '';
-  const base  = localStorage.getItem('at_base')  || '';
-  if (token && base && !token.startsWith('pat_PLACEHOLDER') && !base.startsWith('app_PLACEHOLDER')) {
-    el.innerHTML = '<span class="dot ok"></span>Configured — ready to log';
-    el.style.color = 'var(--green)';
-  } else if (token || base) {
-    el.innerHTML = '<span class="dot warn"></span>Partially configured';
-    el.style.color = 'var(--gold)';
-  } else {
-    el.innerHTML = '<span class="dot warn"></span>Not configured';
-    el.style.color = 'var(--text-dim)';
-  }
-}
-
-// ── Utility ───────────────────────────────────────────────────────────────
-function showStatus(id, type, msg) {
-  const el = document.getElementById(id);
-  el.className = 'status ' + type + ' show';
-  el.textContent = msg;
-  setTimeout(() => { if(type === 'ok') el.classList.remove('show'); }, 4000);
-}
-
-// ── Service Worker ────────────────────────────────────────────────────────
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
-}
+function showStatus(id,type,msg){const el=document.getElementById(id);el.className='status '+type+' show';el.textContent=msg;if(type==='ok')setTimeout(function(){el.classList.remove('show');},4000);}
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
 </script>
 </body>
 </html>
